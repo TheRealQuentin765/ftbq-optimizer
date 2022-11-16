@@ -1,0 +1,111 @@
+<head>
+    <style>
+        body {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color:#FFE0D0;
+            text-shadow: 0px 0px 8px #402060;
+        }
+        h1 {
+            color:#FF80B0;
+            text-shadow: 0px 0px 10px #603090;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+        canvas {
+            border: 4px ridge #120516;
+            background: #100813;
+        }
+        input[type=button] {
+            border: 4px outset #F0788B;
+            background: #FF8098;
+            color:#100515;
+        }
+        input:hover[type=button] {
+            background: #F0788B;
+            border-color: #E07080;
+        }
+        input:active[type=button] {
+            border-style: inset;
+        }
+    </style>
+    <title>FTBQ Optimizer</title>
+</head>
+<body style="background:#100515;">
+    <noscript>
+        <p>Javascript Required!</p>
+    </noscript>
+    <table>
+        <td>
+            <canvas id="c" width="600" height="600"></canvas>
+        </td>
+        <td>
+            <h1>Settings:</h1>
+            <p>Friction:</p>
+            <input type="range" min="0.001" max="0.999" value="0.85" class="slider" step=0.001 id="fricitonSlider">
+            <p>Repel Point Force:</p>
+            <input type="range" min="0.001" max="2" value="0.7" class="slider" step=0.001 id="repelSlider">
+            <p>Repel Line Force:</p>
+            <input type="range" min="0.001" max="1" value="0.3" class="slider" step=0.001 id="lineSlider">
+            <p>Center Force:</p>
+            <input type="range" min="0.001" max="0.2" value="0.02" class="slider" step=0.001 id="centerSlider">
+            <p>Atrack Force:</p>
+            <input type="range" min="0" max="0.7" value="0.3" class="slider" step=0.001 id="atrackSlider">
+            <br>
+            <br>
+            <input type="button" onclick="Noise++;" value="Add Noise">
+            <input type="button" onclick="Noise = 0;" value="Stop Noise">
+            <br>
+            <input type="button" onclick="freeze();" value="Freeze">
+            <input type="button" onclick="resetPos();" value="Reset Positions">
+            <p>Simulate:<input type="checkbox" onClick="SIMULATE = document.getElementById('activeCheckbox').checked;" value=true id="activeCheckbox" checked></p>
+        </td>
+        <td>
+            <h1>Control Mode:</h1>
+            <input type="radio" name="mode" onClick="MODE='drag'" checked>
+            <input type="radio" name="mode" onClick="MODE='push'">
+            <p>Repel Mouse Force:</p>
+            <input type="range" min="0" max="0.2" value="0.1" class="slider" step=0.001 id="mouseSlider">
+            <h1>IO:</h1>
+            <p>Import:</p>
+            <input type="file" id="fileInput" onchange="importIt(this)">
+            <br>
+            <br>
+            <input type="button" onclick="exportIt()" value="Export"/>
+            <p>Export Location:</p>
+            <input type="checkbox" id="exportTasks" checked>
+            <label for="exportTasks">Tasks</label>
+            <br>
+            <input type="checkbox" id="exportIcon">
+            <label for="exportIcon">Icon</label>
+            <br>
+            <input type="checkbox" id="exportRewards">
+            <label for="exportRewards">Rewards</label>
+            <br>
+        </td>
+        <td>
+            <h1>Add Node:</h1>
+            <p>Name:</p>
+            <input type="text" id="nodeNameInput">
+            <br>
+            <input type="button" onclick="addNodeButton()" value="Add Node">
+            <br>
+            <input type="button" onclick="renameNodeButton()" value="Rename Node">
+            <h1>Add Connections:</h1>
+            <p id="selectedText">-</p>
+            <p id="connectionsText">-</p>
+            <input type="text" id="connectionInput">
+            <br>
+            <input type="button" onclick="addConnectionButton()" value="Add Connection">
+            <br>
+            <input type="button" onclick="removeConnectionButton()" value="Remove Connection">
+            <!--br>
+                This is strategically not a feature because I dont no how to implement it, kek
+            <input type="button" onclick="removeNodeButton()" value="Remove Node"-->
+            <br>
+            <br>
+            <br>
+            <input type="button" onclick="reset()" value="Delete Everything">
+        </td>
+    </table>
+    <p>Made by Quentin765</p>
+    <script type="text/javascript" src="q.js"></script>
+</body>
